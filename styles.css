@@ -69,11 +69,12 @@ a {
 
 .hero {
   position: relative;
-  display: flex;           /* Flexbox layout: links en rechts naast elkaar */
-  align-items: flex-start;     /* Items bovenaan uitlijnen */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  min-height: calc(100vh - 100px);  /* Volledige hoogte */
-  padding: 60px 6%;        /* Ruimte rondom */
+  min-height: 100vh;
+  padding: 60px 6%;
 }
 
 .hero .intro {
@@ -171,10 +172,15 @@ a {
 .page-content { padding: 28px 0; }
 
 /* Layout columns for hero */
-.left-column { flex: 1 1 55%; max-width: 55%; }
-.right-column { flex: 0 0 40%; max-width: 40%; display: flex; align-items: flex-start; }
+.left-column { flex: 1 1 50%; max-width: 50%; display: flex; align-items: center; justify-content: center; }
+.right-column { flex: 1 1 50%; max-width: 50%; display: flex; align-items: center; justify-content: center; }
 
 @media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    min-height: unset;
+    padding: 24px;
+  }
   .left-column, .right-column { max-width: 100%; flex: 1 1 100%; }
   .right-column { margin-top: 18px; }
 }
@@ -220,6 +226,7 @@ a {
   .contact-form { width: 100%; }
   .welcome .lead { font-size: 1rem; }
   .contact-section h2 { font-size: 1.1rem; }
+  .page-content { padding: 28px 6%; }
 }
 
 /* CTA button under welcome */
