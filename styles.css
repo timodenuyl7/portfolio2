@@ -72,7 +72,8 @@ a {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 40px;
   min-height: 100vh;
   padding: 60px 6%;
 }
@@ -175,6 +176,11 @@ a {
 .left-column { flex: 1 1 50%; max-width: 50%; display: flex; align-items: center; justify-content: center; }
 .right-column { flex: 1 1 50%; max-width: 50%; display: flex; align-items: center; justify-content: center; }
 
+/* Welcome section centering */
+.welcome { text-align: center; }
+.welcome h1 { text-align: center; }
+.welcome p { margin-left: auto; margin-right: auto; }
+
 @media (max-width: 900px) {
   .hero {
     flex-direction: column;
@@ -183,6 +189,8 @@ a {
   }
   .left-column, .right-column { max-width: 100%; flex: 1 1 100%; }
   .right-column { margin-top: 18px; }
+  .welcome { text-align: center; }
+  #floating-img { margin: 0 auto; display: block; }
 }
 
 /* Index page specific dark background */
@@ -233,14 +241,13 @@ a {
 .cta-button { display: inline-block; margin-top: 12px; margin-right: 8px; padding: 10px 16px; background: #222; color: #fff; text-decoration: none; border-radius: 0; }
 
 /* Make hero image clickable and keep styles */
-.hero-image-link { display: block; position: relative; }
-.hero-image-link img { display: block; }
+.hero-image-link { display: block; position: relative; text-align: center; }
+.hero-image-link img { display: inline-block; max-width: 100%; }
 
 /* ========================================
    8. H1 STIJLEN (Andere pagina's)
    ======================================== */
 
 h1 {
-  text-align: center;      /* Gecentreerd */
   margin: 0;               /* Geen marge */
 }
