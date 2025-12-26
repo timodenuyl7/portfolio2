@@ -19,8 +19,22 @@
 
   <main class="page-content container">
     <h2>Contact</h2>
-    <p>Gebruik het formulier op de homepagina om contact op te nemen, of stuur een e-mail naar <a href="mailto:info@example.com">info@example.com</a>.</p>
+    <p>Vul het formulier hieronder in en ik neem zo snel mogelijk contact op.</p>
+    
+    <form class="contact-form" action="https://formspree.io/f/mgvqlzwj" method="POST">
+      <label>Naam<br><input type="text" name="naam" required></label>
+      <label>Email<br><input type="email" name="email" required></label>
+      <label>Bericht<br><textarea name="bericht" rows="5" required></textarea></label>
+      <button type="submit">Verstuur</button>
+    </form>
+
+    <div class="contact-info">
+      <p><strong>Naam:</strong> Timo den Uyl<br>
+      <strong>Email:</strong> <a href="mailto:timo.denuyl@hotmail.nl">timo.denuyl@hotmail.nl</a><br>
+      <strong>Telefoon:</strong> <a href="tel:+31646565162">+31 6 46565162</a></p>
+    </div>
   </main>
 
 </body>
 </html>
+  

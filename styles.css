@@ -213,8 +213,8 @@ a {
 .contact-info { margin-top: 12px; font-size: 0.95rem; color: #ddd; }
 
 /* Footer styling */
-.site-footer { padding: 18px 6%; margin-top: 28px; background: rgba(255,255,255,0.03); color: var(--fg); }
-.site-footer p { margin: 6px 0; }
+.site-footer { padding: 12px 6%; margin-top: 28px; text-align: center; font-size: 0.85rem; color: var(--fg); }
+.site-footer p { margin: 4px 0; }
 
 @media (max-width: 700px) {
   .contact-form { width: 100%; }
@@ -223,7 +223,7 @@ a {
 }
 
 /* CTA button under welcome */
-.cta-button { display: inline-block; margin-top: 12px; padding: 10px 16px; background: #222; color: #fff; text-decoration: none; border-radius: 0; }
+.cta-button { display: inline-block; margin-top: 12px; margin-right: 8px; padding: 10px 16px; background: #222; color: #fff; text-decoration: none; border-radius: 0; }
 
 /* Make hero image clickable and keep styles */
 .hero-image-link { display: block; position: relative; }
