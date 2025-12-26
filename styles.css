@@ -1,9 +1,7 @@
 /* ========================================
-   LENNY'S PORTFOLIO - STYLES.CSS
-   
-   Dit bestand bevat alle styling voor de website.
-   Het is onderverdeeld in secties voor gemakkelijk begrijpen.
-   ======================================== */
+  STYLES.CSS
+  Algemene styling voor de website
+  ======================================== */
 
 /* ========================================
    1. KLEUREN & VARIABELEN (Dark Mode support)
@@ -54,7 +52,7 @@ a {
   margin-left: 8px;
   padding: 6px 10px;
   border: 0;
-  border-radius: 4px;
+  border-radius: 0;
   cursor: pointer;
   background: #eee;       /* Licht grijs in licht thema */
   color: #111;
@@ -72,8 +70,8 @@ a {
 .hero {
   position: relative;
   display: flex;           /* Flexbox layout: links en rechts naast elkaar */
-  align-items: center;     /* Centreer items verticaal */
-  justify-content: flex-start;  /* Links uitlijnen */
+  align-items: flex-start;     /* Items bovenaan uitlijnen */
+  justify-content: space-between;
   min-height: calc(100vh - 100px);  /* Volledige hoogte */
   padding: 60px 6%;        /* Ruimte rondom */
 }
@@ -98,22 +96,13 @@ a {
    ======================================== */
 
 #floating-img {
-  position: absolute;      /* Vast positie in hero */
-  right: 6%;               /* 6% van rechts */
-  top: 50%;                /* Verticaal gecentreerd */
-  width: 800px;            /* Breedte afbeelding */
-  max-width: 40vw;         /* Max 40% van schermbedte */
-  transform: translateY(-50%) rotate(30deg);  /* Centreer & kantel */
+  position: relative;      /* Keep image in flow so it doesn't overlap text */
+  width: 100%;
+  transform: rotate(6deg);  /* subtle tilt */
   box-shadow: 0 12px 30px rgba(0,0,0,0.35);  /* Schaduw effect */
-  z-index: 40;             /* Zit boven andere elementen */
-  border-radius: 8px;      /* Ronde hoeken */
-  transition: transform .25s ease;  /* Smooth hover effect */
-  cursor: default;
-  pointer-events: auto;
-}
-
-#floating-img:hover {
-  transform: translateY(-55%) rotate(25deg);  /* Andere hoek bij hover */
+  z-index: 10;
+  border-radius: 0;      /* no rounded corners */
+  cursor: pointer;
 }
 
 /* ========================================
@@ -134,12 +123,111 @@ a {
   }
   
   #floating-img {
-    position: static;        /* Normale positie */
-    transform: none;         /* Geen transformatie */
+    position: relative;        /* Normale positie */
+    transform: none;         /* Geen transformatie on small screens */
     width: 80%;              /* 80% breedte */
     max-width: 420px;        /* Maximum 420px */
   }
 }
+
+/* ========================================
+   9. HEADER / NAV STYLES
+   ======================================== */
+.site-header {
+  background: var(--card);
+  padding: 12px 6%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 120;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.logo { text-decoration: none; color: inherit; font-weight: 700; }
+.site-nav a { margin-left: 12px; text-decoration: none; color: inherit; padding: 8px 10px; border-radius: 0; }
+
+/* ========================================
+   10. PHOTOS GRID & CARD STYLES
+   ======================================== */
+.photo-grid { display: flex; gap: 16px; flex-wrap: wrap; padding: 24px 6%; max-width: 1200px; margin: 0 auto; }
+.photo-card { position: relative; display: block; width: 300px; border-radius: 0; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.photo-card img { width: 100%; height: 200px; object-fit: cover; display: block; border-radius: 0; }
+.photo-card .meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%); color: #fff; }
+.photo-card .meta h3, .photo-card .meta p { margin: 0; }
+
+@media (max-width: 600px) {
+  .photo-card { width: 100%; }
+  .photo-card img { height: 180px; }
+  .site-nav { display: flex; gap: 8px; }
+}
+
+/* Small utility container */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 6%; }
+.page-content { padding: 28px 0; }
+
+/* Layout columns for hero */
+.left-column { flex: 1 1 55%; max-width: 55%; }
+.right-column { flex: 0 0 40%; max-width: 40%; display: flex; align-items: flex-start; }
+
+@media (max-width: 900px) {
+  .left-column, .right-column { max-width: 100%; flex: 1 1 100%; }
+  .right-column { margin-top: 18px; }
+}
+
+/* Index page specific dark background */
+.index-dark { --bg: #000; --fg: #fff; }
+
+/* Remove rounded corners on large floating image */
+#floating-img { border-radius: 0; }
+
+/* Contact form */
+.contact-form { max-width: 520px; }
+.contact-form label { display: block; margin-bottom: 8px; }
+.contact-form input, .contact-form textarea { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #ccc; background: #fff; color: #000; }
+.contact-form button { margin-top: 8px; padding: 10px 14px; border-radius: 0; border: 0; background: #222; color: #fff; cursor: pointer; }
+
+/* Dark header only on index page */
+.index-dark .site-header {
+  background: #111;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.index-dark .site-header .logo { color: #fff; }
+.index-dark .site-nav a { color: #fff; }
+
+/* make the intro (contact area) sit lower on the page */
+.intro { margin-top: 40px; }
+.intro p { max-width: 48ch; line-height: 1.5; }
+
+/* Welcome lead text */
+.welcome .lead { font-size: 1.05rem; margin-top: 8px; }
+
+/* Contact section smaller heading */
+.contact-section h2 { font-size: 1.25rem; margin-top: 24px; }
+.contact-intro { margin-bottom: 12px; }
+.contact-info { margin-top: 12px; font-size: 0.95rem; color: #ddd; }
+
+/* Footer styling */
+.site-footer { padding: 18px 6%; margin-top: 28px; background: rgba(255,255,255,0.03); color: var(--fg); }
+.site-footer p { margin: 6px 0; }
+
+@media (max-width: 700px) {
+  .contact-form { width: 100%; }
+  .welcome .lead { font-size: 1rem; }
+  .contact-section h2 { font-size: 1.1rem; }
+}
+
+/* CTA button under welcome */
+.cta-button { display: inline-block; margin-top: 12px; padding: 10px 16px; background: #222; color: #fff; text-decoration: none; border-radius: 0; }
+
+/* Make hero image clickable and keep styles */
+.hero-image-link { display: block; position: relative; }
+.hero-image-link img { display: block; }
 
 /* ========================================
    8. H1 STIJLEN (Andere pagina's)

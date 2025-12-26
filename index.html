@@ -5,43 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
-      function setTheme(theme){
-        if(theme==='dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
-        try{localStorage.setItem('theme', theme)}catch(e){}
-        updateToggleText();
-      }
-      function toggleTheme(){ setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'); }
-      function updateToggleText(){ document.querySelectorAll('.dark-toggle').forEach(b=> b.textContent = document.documentElement.classList.contains('dark') ? 'Light' : 'Dark'); }
-      document.addEventListener('DOMContentLoaded', ()=>{
-        const stored = (function(){try{return localStorage.getItem('theme')}catch(e){return null}})();
-        const prefer = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light';
-        setTheme(stored || prefer);
-        document.querySelectorAll('.dark-toggle').forEach(b=> b.addEventListener('click', toggleTheme));
-      });
-    </script>
 </head>
-<!-- Navbar (sit on top) -->
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-  
-    <h1>
-    <a href="#home" class="w3-bar-item w3-button"><b>Lenny's</b> Portfolio</a></h1>
-    <!-- Float links to the right. Hide them on small screens -->
-    <div class="w3-right w3-hide-small">
-      <a href="Photos.html" class="w3-bar-item w3-button">Photos</a>
-      <a href="#about" class="w3-bar-item w3-button">About</a>
-      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
-      <button class="dark-toggle" aria-label="Toggle dark mode">Dark</button>
-    </div>
-  </div>
-    <hr>
-    <main class="hero">
-      <div class="intro">
-        <h1>Welkom, ik ben Timo</h1>
-        <p>Welkom op mijn portfolio. Hier laat ik enkele projecten en foto's zien. Klik op "Photos" om verder te kijken.</p>
-      </div>
-      <img id="floating-img" src="Images/DSC06728.jpg" alt="tilted photo" aria-hidden="true">
-    </main>
-</div>
-</html>
+<body class="index-dark">
+    <header class="site-header">
+            <div class="container">
+                <a href="index.html" class="logo"><b>Timo den Uyl Fotografie</b></a>
+                <nav class="site-nav">
+                    <a href="Photos.html">Portfolio</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="hero container">
+            <div class="left-column">
+                <div class="welcome">
+                    <h1>Welkom</h1>
+                    <p class="lead">Welkom op mijn site. Ik fotografeer met veel plezier evenementen — van intieme ceremonies tot grotere feesten. Ik leg momenten vast die je later met plezier terugkijkt. Neem gerust contact op voor beschikbaarheid en prijzen.</p>
+                    <p><a class="cta-button" href="Photos.html">Bekijk portfolio</a></p>
+                </div>
+
+                <section class="contact-section">
+                    <h2>Contact</h2>
+                    <p class="contact-intro">Ik help je graag met fotografie tijdens jouw evenement. Vul hieronder je gegevens in en ik neem zo snel mogelijk contact op.</p>
+                    <form class="contact-form" action="mailto:info@example.com" method="post" enctype="text/plain">
+                        <label>Naam<br><input type="text" name="naam" required></label>
+                        <label>Email<br><input type="email" name="email" required></label>
+                        <label>Bericht<br><textarea name="bericht" rows="5" required></textarea></label>
+                        <button type="submit">Verstuur</button>
+                    </form>
+
+                    <div class="contact-info">
+                        <p><strong>Naam:</strong> Vervang met jouw naam<br>
+                        <strong>Email:</strong> info@example.com<br>
+                        <strong>Telefoon:</strong> Vervang met jouw telefoonnummer</p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="right-column">
+                <a class="hero-image-link" href="Photos.html">
+                    <img id="floating-img" src="Images/DSC06728.jpg" alt="tilted photo">
+                </a>
+            </div>
+        </main>
+
+        <footer class="site-footer container">
+            <p>Contactgegevens — Email: info@example.com — Telefoon: Vervang met jouw telefoonnummer</p>
+            <p>&copy; 2025 Timo den Uyl Fotografie</p>
+        </footer>
+        </body>
+    </html>
