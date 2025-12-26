@@ -1,0 +1,151 @@
+/* ========================================
+   LENNY'S PORTFOLIO - STYLES.CSS
+   
+   Dit bestand bevat alle styling voor de website.
+   Het is onderverdeeld in secties voor gemakkelijk begrijpen.
+   ======================================== */
+
+/* ========================================
+   1. KLEUREN & VARIABELEN (Dark Mode support)
+   ======================================== */
+
+:root {
+  /* Licht thema (standaard) */
+  --bg: #ffffff;           /* Achtergrond kleur */
+  --fg: #111111;           /* Tekst kleur */
+  --card: #f5f5f5;         /* Kaart/panel achtergrond */
+}
+
+/* Dark mode variabelen */
+.dark {
+  --bg: #0b0b0b;           /* Donkere achtergrond */
+  --fg: #eaeaea;           /* Lichte tekst */
+  --card: #1a1a1a;         /* Donkere kaart achtergrond */
+}
+
+/* ========================================
+   2. ALGEMENE STIJLEN (Body, Links, etc)
+   ======================================== */
+
+body {
+  background: var(--bg);   /* Gebruikt de kleurvariabele */
+  color: var(--fg);        /* Gebruikt de tekstkleurvariabele */
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;          /* Links erven tekstkleur */
+}
+
+/* ========================================
+   3. NAVIGATIEBALK (w3-bar)
+   ======================================== */
+
+.w3-bar {
+  background: var(--card) !important;  /* Kaartkleur achtergrond */
+}
+
+/* ========================================
+   4. DARK MODE KNOP
+   ======================================== */
+
+.dark-toggle {
+  margin-left: 8px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #eee;       /* Licht grijs in licht thema */
+  color: #111;
+}
+
+.dark .dark-toggle {
+  background: #333;       /* Donker grijs in dark thema */
+  color: #fff;            /* Witte tekst */
+}
+
+/* ========================================
+   5. HERO SECTIE (Welkom afdeling)
+   ======================================== */
+
+.hero {
+  position: relative;
+  display: flex;           /* Flexbox layout: links en rechts naast elkaar */
+  align-items: center;     /* Centreer items verticaal */
+  justify-content: flex-start;  /* Links uitlijnen */
+  min-height: calc(100vh - 100px);  /* Volledige hoogte */
+  padding: 60px 6%;        /* Ruimte rondom */
+}
+
+.hero .intro {
+  max-width: 52%;          /* Links 52% breedte */
+  padding-right: 24px;     /* Ruimte tussen tekst en afbeelding */
+}
+
+.hero .intro h1 {
+  font-size: 2.6rem;       /* Grote titel */
+  margin: 0 0 8px 0;       /* Geen marge, 8px onder */
+}
+
+.hero .intro p {
+  font-size: 1.05rem;      /* Iets groter dan normaal */
+  line-height: 1.45;       /* Meer ruimte tussen regels */
+}
+
+/* ========================================
+   6. GEKANTELDE AFBEELDING
+   ======================================== */
+
+#floating-img {
+  position: absolute;      /* Vast positie in hero */
+  right: 6%;               /* 6% van rechts */
+  top: 50%;                /* Verticaal gecentreerd */
+  width: 800px;            /* Breedte afbeelding */
+  max-width: 40vw;         /* Max 40% van schermbedte */
+  transform: translateY(-50%) rotate(30deg);  /* Centreer & kantel */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);  /* Schaduw effect */
+  z-index: 40;             /* Zit boven andere elementen */
+  border-radius: 8px;      /* Ronde hoeken */
+  transition: transform .25s ease;  /* Smooth hover effect */
+  cursor: default;
+  pointer-events: auto;
+}
+
+#floating-img:hover {
+  transform: translateY(-55%) rotate(25deg);  /* Andere hoek bij hover */
+}
+
+/* ========================================
+   7. RESPONSIVE DESIGN (Klein scherm)
+   ======================================== */
+
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;  /* Stapel bovenop elkaar */
+    min-height: unset;
+    padding: 24px;
+  }
+  
+  .hero .intro {
+    max-width: 100%;         /* Volledige breedte */
+    padding-right: 0;        /* Geen zijruimte */
+    margin-bottom: 18px;     /* Ruimte onder */
+  }
+  
+  #floating-img {
+    position: static;        /* Normale positie */
+    transform: none;         /* Geen transformatie */
+    width: 80%;              /* 80% breedte */
+    max-width: 420px;        /* Maximum 420px */
+  }
+}
+
+/* ========================================
+   8. H1 STIJLEN (Andere pagina's)
+   ======================================== */
+
+h1 {
+  text-align: center;      /* Gecentreerd */
+  margin: 0;               /* Geen marge */
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      function setTheme(theme){
+        if(theme==='dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
+        try{localStorage.setItem('theme', theme)}catch(e){}
+        updateToggleText();
+      }
+      function toggleTheme(){ setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'); }
+      function updateToggleText(){ document.querySelectorAll('.dark-toggle').forEach(b=> b.textContent = document.documentElement.classList.contains('dark') ? 'Light' : 'Dark'); }
+      document.addEventListener('DOMContentLoaded', ()=>{
+        const stored = (function(){try{return localStorage.getItem('theme')}catch(e){return null}})();
+        const prefer = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light';
+        setTheme(stored || prefer);
+        document.querySelectorAll('.dark-toggle').forEach(b=> b.addEventListener('click', toggleTheme));
+      });
+    </script>
+</head>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+  
+    <h1>
+    <a href="index.html" class="w3-bar-item w3-button"><b>Lenny's</b> Portfolio</a></h1>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="Photos.html" class="w3-bar-item w3-button">Photos</a>
+      <a href="#about" class="w3-bar-item w3-button">About</a>
+      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+      <button class="dark-toggle" aria-label="Toggle dark mode">Dark</button>
+    </div>
+  </div>
+  <br>
+  <hr>
+          <h3>all Project - A B C D E F G H I J K L M N O P Q R S T U V W X Y Z </h3>
+        <hr>
+    
+    </div>
+    <button>
+      <img src="Images/replace.JPG" alt="halftijd" style="width:300px;height:200px;">
+        <br>
+        <h3>Halftijd</h3>
+        <p>Maart 2025</p>
+    </button>
+        <button>
+        <img src="Images/Ragnarok.jpg" \alt="Ragnarok" style="width:300px;height:200px;">
+        <br>
+        <h3>Ragnarok</h3>
+        <p>Feb 2025</p>
+    </button>
+      
+
+
+</div>
+</html>
+

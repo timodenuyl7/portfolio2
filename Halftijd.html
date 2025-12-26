@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Document</title>
+                <link rel="stylesheet" href="styles.css">
+                <script>
+                    function setTheme(theme){
+                        if(theme==='dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
+                        try{localStorage.setItem('theme', theme)}catch(e){}
+                        updateToggleText();
+                    }
+                    function toggleTheme(){ setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'); }
+                    function updateToggleText(){ document.querySelectorAll('.dark-toggle').forEach(b=> b.textContent = document.documentElement.classList.contains('dark') ? 'Light' : 'Dark'); }
+                    document.addEventListener('DOMContentLoaded', ()=>{
+                        const stored = (function(){try{return localStorage.getItem('theme')}catch(e){return null}})();
+                        const prefer = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light';
+                        setTheme(stored || prefer);
+                        document.querySelectorAll('.dark-toggle').forEach(b=> b.addEventListener('click', toggleTheme));
+                    });
+                </script>
+        </head>
+    <body>
+        <header>
+            <h1>portfolio</h1>
+            <button class="dark-toggle" aria-label="Toggle dark mode">Dark</button>
+            <p> <a href="index.html">home</a> / about me / portfolio / contact</p>
+        3
+        </header>
+        <p>
+            summer house
+            <div></div>
+            meer uitleg en heel veel text, ik ga maar gewoon iets schrijven over het huis wat wel belangrijk is.terwijl er eigenlijk foto;s moeten komen maar ik weet nog niet goed hoe ik deze toevoeg op een mooie manier.
+
+
+        </p>
+
+    </body>
+</html>

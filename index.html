@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      function setTheme(theme){
+        if(theme==='dark') document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark');
+        try{localStorage.setItem('theme', theme)}catch(e){}
+        updateToggleText();
+      }
+      function toggleTheme(){ setTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark'); }
+      function updateToggleText(){ document.querySelectorAll('.dark-toggle').forEach(b=> b.textContent = document.documentElement.classList.contains('dark') ? 'Light' : 'Dark'); }
+      document.addEventListener('DOMContentLoaded', ()=>{
+        const stored = (function(){try{return localStorage.getItem('theme')}catch(e){return null}})();
+        const prefer = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark':'light';
+        setTheme(stored || prefer);
+        document.querySelectorAll('.dark-toggle').forEach(b=> b.addEventListener('click', toggleTheme));
+      });
+    </script>
+</head>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+  
+    <h1>
+    <a href="#home" class="w3-bar-item w3-button"><b>Lenny's</b> Portfolio</a></h1>
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a href="Photos.html" class="w3-bar-item w3-button">Photos</a>
+      <a href="#about" class="w3-bar-item w3-button">About</a>
+      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+      <button class="dark-toggle" aria-label="Toggle dark mode">Dark</button>
+    </div>
+  </div>
+    <hr>
+    <main class="hero">
+      <div class="intro">
+        <h1>Welkom, ik ben Timo</h1>
+        <p>Welkom op mijn portfolio. Hier laat ik enkele projecten en foto's zien. Klik op "Photos" om verder te kijken.</p>
+      </div>
+      <img id="floating-img" src="Images/DSC06728.jpg" alt="tilted photo" aria-hidden="true">
+    </main>
+</div>
+</html>
