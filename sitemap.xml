@@ -19,4 +19,23 @@
   </url>
 
   <!-- Voeg hier extra pagina’s toe als je die maakt -->
+  
+  <!-- Evenementen:Halftijd -->
+  <url>
+    <loc>https://timodenuyl.nl/Halftijd.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Evenementen: Kickbox wedstrijd -->
+  <url>
+    <loc>https://timodenuyl.nl/Kickbox_wedstrijd.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Evenementen: Ragnarok -->
+  <url>
+    <loc>https://timodenuyl.nl/Ragnarok.html</loc>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>

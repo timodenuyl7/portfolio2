@@ -153,6 +153,8 @@ a {
 .logo { text-decoration: none; color: inherit; font-weight: 700; }
 .site-nav a { margin-left: 12px; text-decoration: none; color: inherit; padding: 8px 10px; border-radius: 0; }
 
+
+
 /* ========================================
    10. PHOTOS GRID & CARD STYLES
    ======================================== */
@@ -250,4 +252,92 @@ a {
 
 h1 {
   margin: 0;               /* Geen marge */
+}
+
+/* Zorgt ervoor dat de footer altijd onderaan staat */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Main groeit zodat footer naar onder wordt gedrukt */
+main {
+    flex: 1;
+}
+
+/* Minimal footer */
+.site-footer {
+    background-color: #0f0f0f;
+    padding: 18px 20px;
+    margin-top: 80px;
+    font-size: 0.85rem;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #8f8f8f;
+}
+
+.footer-left p {
+    margin: 0;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-right a {
+    color: #8f8f8f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-right a:hover {
+    color: #ffffff;
+}
+
+.footer-right span {
+    color: #444;
+}
+
+/* Mobiel */
+@media (max-width: 600px) {
+    .footer-inner {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+
+/* Photo grid styles for Photos.html */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* minimale kolom 250px, maximaal 1fr */
+  gap: 15px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.photo img {
+  width: 100%;
+  height: auto;      /* voorkomt vervorming */
+  display: block;    /* verwijdert witruimte onder de afbeelding */
+  object-fit: cover; /* vult het vak netjes */
+  transition: transform 0.3s;
+}
+
+.photo img:hover {
+  transform: scale(1.05);
 }
