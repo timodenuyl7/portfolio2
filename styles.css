@@ -323,7 +323,7 @@ main {
 /* Photo grid styles for Photos.html */
 .photo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* minimale kolom 250px, maximaal 1fr */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* minimale kolom 300px, maximaal 1fr */
   gap: 15px;
   padding: 10px;
   width: 100%;
@@ -340,4 +340,72 @@ main {
 
 .photo img:hover {
   transform: scale(1.05);
+}
+
+/* ========================================
+   10. PHOTOS GRID
+   Voor horizontale foto's
+   ======================================== */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  padding: 10px;
+  width: 100%;
+  max-width: 1200px;      /* maximale breedte */
+  margin: 0 auto;         /* centreren op het scherm */
+  box-sizing: border-box;
+}
+
+.photo-grid .photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.photo-grid .photo img:hover {
+  transform: scale(1.05);
+}
+
+/* ========================================
+   11. PHOTO-STAAND CLASS
+   Voor staande foto's in de grid
+   ======================================== */
+.photo-staand {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* laptop en groter */
+  gap: 15px;
+  padding: 10px;
+  width: 100%;
+  max-width: 1200px;      /* maximale breedte */
+  margin: 0 auto;         /* centreren */
+  box-sizing: border-box;
+}
+
+.photo-staand img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.photo-staand img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive: tablets / medium schermen */
+@media (max-width: 900px) {
+  .photo-staand {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* flexibel */
+  }
+}
+
+/* Mobiel: staande foto's altijd 2 naast elkaar */
+@media (max-width: 600px) {
+  .photo-staand {
+    grid-template-columns: repeat(2, 1fr); /* precies 2 kolommen */
+  }
 }
