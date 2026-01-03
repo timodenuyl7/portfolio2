@@ -158,17 +158,16 @@ a {
 /* ========================================
    10. PHOTOS GRID & CARD STYLES
    ======================================== */
-.photo-grid { display: flex; gap: 16px; flex-wrap: wrap; padding: 24px 6%; max-width: 1200px; margin: 0 auto; }
-.photo-card { position: relative; display: block; width: 300px; border-radius: 0; overflow: hidden; text-decoration: none; color: inherit; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-.photo-card img { width: 100%; height: 200px; object-fit: cover; display: block; border-radius: 0; }
-.photo-card .meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 12px; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%); color: #fff; }
-.photo-card .meta h3, .photo-card .meta p { margin: 0; }
+.photo-grid-buttons { display: grid; grid-template-columns: repeat(3,340px); justify-content: center; gap:16px; padding:24px 6%; max-width:2000px; margin:0 auto; }
+.photo-card { position:relative; border-radius:0; overflow:hidden; text-decoration:none; color:inherit; box-shadow:0 8px 24px rgba(0,0,0,0.12); }
+.photo-card img { width:100%; height:220px; object-fit:cover; display:block; border-radius:0; }
+.photo-card .meta { position:absolute; left:0; right:0; bottom:0; padding:12px; background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.55) 100%); color:#fff; }
+.photo-card .meta h3,.photo-card .meta p { margin:0; }
+@media(max-width:1199px) and (min-width:601px){.photo-grid-buttons{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.photo-grid-buttons{grid-template-columns:1fr;}.photo-card{width: 100%;max-width: 100%;}.photo-card img{height:240px;}}
 
-@media (max-width: 600px) {
-  .photo-card { width: 100%; }
-  .photo-card img { height: 180px; }
-  .site-nav { display: flex; gap: 8px; }
-}
+
+
 
 /* Small utility container */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 6%; }
@@ -321,11 +320,11 @@ main {
 
 
 /* Photo grid styles for Photos.html */
-.photo-grid {
+.photo-grid-but {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* minimale kolom 300px, maximaal 1fr */
+  grid-template-columns: repeat(auto-fit, minmax(1200px, 3fr)); /* minimale kolom 300px, maximaal 1fr */
   gap: 15px;
-  padding: 10px;
+  padding: 10px;  
   width: 100%;
   box-sizing: border-box;
 }
@@ -409,3 +408,4 @@ main {
     grid-template-columns: repeat(2, 1fr); /* precies 2 kolommen */
   }
 }
+
