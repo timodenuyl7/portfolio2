@@ -1,7 +1,7 @@
 import { Character } from "../entities/Character.js";
 import { LEVELS, PRODUCTS, PUZZLE_GOAL } from "../data/products.js";
 
-const GRID = { columns: 12, rows: 9, tileWidth: 76, tileHeight: 38, originX: 560, originY: 148 };
+const GRID = { columns: 14, rows: 9, tileWidth: 76, tileHeight: 38, originX: 560, originY: 148 };
 const CUSTOMER_SPOTS = [
   { col: 0.5, row: 6.7 }, { col: 2.3, row: 5.2 }, { col: 4.1, row: 6.7 },
   { col: 6.4, row: 7.6 }, { col: 8.8, row: 5.3 }, { col: 10.9, row: 6.5 },
@@ -51,6 +51,8 @@ export class PubScene extends Phaser.Scene {
     this.keys = this.input.keyboard.addKeys("W,A,S,D,E,ESC");
     this.cursors = this.input.keyboard.createCursorKeys();
     this.eKey = this.keys.E;
+    this.virtualMove = { up: false, down: false, left: false, right: false };
+    this.createTouchControls();
     this.escapeHandler = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -62,6 +64,51 @@ export class PubScene extends Phaser.Scene {
     this.interactionGraphic = this.add.graphics().setDepth(900);
     this.fryerGraphic = this.add.graphics().setDepth(900);
     this.scene.bringToTop();
+  }
+
+  createTouchControls() {
+    const touchMode = this.sys.game.device.input.touch || window.matchMedia("(pointer: coarse)").matches || window.innerWidth <= 760;
+    if (!touchMode) return;
+    this.touchPanel = this.add.container(0, 0).setDepth(1400).setVisible(false);
+    this.touchToggle = this.add.container(0, 0).setDepth(1401);
+    const toggleBg = this.add.circle(76, 460, 45, 0x30483a, 0.94).setStrokeStyle(3, 0xf4c655).setInteractive();
+    const toggleLabel = this.add.text(76, 460, "MOVE", { fontSize: "14px", fontStyle: "bold", color: "#fff0d4" }).setOrigin(0.5);
+    this.touchToggle.add([toggleBg, toggleLabel]);
+    toggleBg.on("pointerdown", () => {
+      const visible = !this.touchPanel.visible;
+      this.touchPanel.setVisible(visible);
+      toggleLabel.setText(visible ? "HIDE" : "MOVE");
+      if (!visible) this.releaseVirtualMove();
+    });
+
+    const directions = [
+      { key: "up", label: "^", x: 125, y: 554 },
+      { key: "left", label: "<", x: 69, y: 610 },
+      { key: "right", label: ">", x: 181, y: 610 },
+      { key: "down", label: "v", x: 125, y: 666 }
+    ];
+    directions.forEach(({ key, label, x, y }) => {
+      const button = this.add.circle(x, y, 46, 0x26392e, 0.92).setStrokeStyle(3, 0xc9d2b8).setInteractive();
+      const text = this.add.text(x, y, label, { fontSize: "28px", fontStyle: "bold", color: "#fff0d4" }).setOrigin(0.5);
+      button.on("pointerdown", () => { this.virtualMove[key] = true; });
+      const release = () => { this.virtualMove[key] = false; };
+      button.on("pointerup", release);
+      button.on("pointerupoutside", release);
+      button.on("pointerout", release);
+      this.touchPanel.add([button, text]);
+    });
+
+    const actionBg = this.add.circle(1040, 616, 54, 0xe84f3b, 0.96).setStrokeStyle(3, 0xffdf9a).setInteractive();
+    const actionLabel = this.add.text(1040, 616, "E", { fontSize: "28px", fontStyle: "bold", color: "#fff8e9" }).setOrigin(0.5);
+    actionBg.on("pointerdown", () => this.interact());
+    this.touchAction = this.add.container(0, 0, [actionBg, actionLabel]).setDepth(1402);
+  }
+
+  releaseVirtualMove() {
+    this.virtualMove.up = false;
+    this.virtualMove.down = false;
+    this.virtualMove.left = false;
+    this.virtualMove.right = false;
   }
 
   project(col, row) {
@@ -184,7 +231,7 @@ export class PubScene extends Phaser.Scene {
   }
 
   getBarLayout() {
-    const tileCount = Math.min(GRID.columns, this.level.drinks.length * 2 + 4);
+    const tileCount = Math.min(GRID.columns - 2, this.level.drinks.length * 2 + 2);
     const startCol = Math.floor((GRID.columns - tileCount) / 2);
     return { startCol, endCol: startCol + tileCount - 1 };
   }
@@ -206,15 +253,15 @@ export class PubScene extends Phaser.Scene {
     const { startCol } = this.getBarLayout();
     this.stations = [];
     this.level.drinks.forEach((productId, index) => {
-      const glassCol = startCol + 1 + index * 2;
-      const tapCol = glassCol + 1;
+      const tapCol = startCol + 1 + index * 2;
+      const glassCol = tapCol + 1;
       const product = PRODUCTS[productId];
       const glassLabel = productId === "pils" ? "GLAS: BIER" : `GLAS: ${product.short}`;
       const tapLabel = productId === "pils" ? "TAP: BIER" : `TAP: ${product.short}`;
       this.stations.push({ id: `glass-${productId}`, name: glassLabel, col: glassCol, row: 2, type: "glass", productId });
       this.stations.push({
         id: `tap-${productId}`, name: productId === "stroh" ? "FLES: STROH" : tapLabel,
-        col: tapCol, row: 2, type: productId === "stroh" ? "bottle" : "tap", productId
+        col: tapCol, row: 1, type: productId === "stroh" ? "bottle" : "tap", productId
       });
     });
     const { endCol } = this.getBarLayout();
@@ -276,7 +323,7 @@ export class PubScene extends Phaser.Scene {
       g.lineBetween(x - 10, y - 41, x + 10, y - 41);
     }
     this.add.text(x, y + 24, station.name, {
-      fontFamily: "Trebuchet MS, sans-serif", fontSize: "10px", fontStyle: "bold", color: "#f5ebd6", backgroundColor: "#24372c", padding: { x: 4, y: 2 }
+      fontFamily: "Trebuchet MS, sans-serif", fontSize: "9px", fontStyle: "bold", color: "#f5ebd6", backgroundColor: "#24372c", padding: { x: 3, y: 2 }
     }).setOrigin(0.5).setDepth(800);
     if (station.type === "tray") {
       this.trayStationPosition = { x, y: y - 40 };
@@ -388,7 +435,10 @@ export class PubScene extends Phaser.Scene {
       g.fillEllipse(holeX, holeY, 8 * scale, 6 * scale);
       g.lineStyle(1 * scale, 0xc9a477, 0.95);
       g.strokeEllipse(holeX, holeY, 8 * scale, 6 * scale);
-      if (items[slot]) this.drawGlass(g, holeX, holeY + 1 * scale, items[slot].productId, 1, 0.34 * scale);
+      if (items[slot]) {
+        g.fillStyle(0xf4c655, 1);
+        g.fillCircle(holeX, holeY, 2.8 * scale);
+      }
     });
   }
 
@@ -707,10 +757,10 @@ export class PubScene extends Phaser.Scene {
   updateMovement(seconds) {
     let dc = 0;
     let dr = 0;
-    if (this.keys.A.isDown || this.cursors.left.isDown) dc -= 1;
-    if (this.keys.D.isDown || this.cursors.right.isDown) dc += 1;
-    if (this.keys.W.isDown || this.cursors.up.isDown) dr -= 1;
-    if (this.keys.S.isDown || this.cursors.down.isDown) dr += 1;
+    if (this.keys.A.isDown || this.cursors.left.isDown || this.virtualMove.left) dc -= 1;
+    if (this.keys.D.isDown || this.cursors.right.isDown || this.virtualMove.right) dc += 1;
+    if (this.keys.W.isDown || this.cursors.up.isDown || this.virtualMove.up) dr -= 1;
+    if (this.keys.S.isDown || this.cursors.down.isDown || this.virtualMove.down) dr += 1;
     if (!dc && !dr) return;
     const magnitude = Math.hypot(dc, dr);
     dc = dc / magnitude * 3.3 * seconds;
@@ -1305,6 +1355,10 @@ export class PubScene extends Phaser.Scene {
     if (this.completed) return;
     this.paused = !this.paused;
     if (this.paused) {
+      this.touchToggle?.setVisible(false);
+      this.touchPanel?.setVisible(false);
+      this.touchAction?.setVisible(false);
+      this.releaseVirtualMove();
       this.pauseShade = this.add.rectangle(560, 360, 1120, 720, 0x101a15, 0.82).setDepth(1100);
       this.pauseText = this.add.text(560, 310, "EVEN OP ADEM KOMEN", {
         fontFamily: "Georgia, serif", fontSize: "38px", color: "#f7eedc"
@@ -1316,6 +1370,8 @@ export class PubScene extends Phaser.Scene {
         .setOrigin(0.5).setDepth(1101).setInteractive({ useHandCursor: true });
       menu.on("pointerdown", () => this.scene.start("menu"));
     } else {
+      this.touchToggle?.setVisible(true);
+      this.touchAction?.setVisible(true);
       this.pauseShade?.destroy();
       this.pauseText?.destroy();
       this.pauseHint?.destroy();
