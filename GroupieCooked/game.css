@@ -1,0 +1,22 @@
+:root { color-scheme: dark; --night: #18251f; --cream: #f7eedc; --red: #e84f3b; }
+* { box-sizing: border-box; }
+html, body { width: 100%; min-width: 320px; min-height: 100%; margin: 0; }
+body { background: var(--night); color: var(--cream); font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
+.game-shell { display: flex; min-height: 100svh; flex-direction: column; align-items: center; justify-content: center; padding: 18px 22px 12px; }
+.game-topline, .game-caption { display: flex; width: min(1120px, 100%); align-items: center; justify-content: space-between; }
+.game-topline { min-height: 38px; margin-bottom: 8px; }
+.brand { color: var(--cream); font-size: 15px; font-weight: 900; letter-spacing: .08em; text-decoration: none; }
+.brand span { color: var(--red); }
+.topline-note { color: #b7c1ad; font-size: 10px; font-weight: 700; letter-spacing: .16em; }
+#game-container { display: grid; width: min(1120px, 100%, calc((100svh - 140px) * 1.55556)); aspect-ratio: 14 / 9; place-items: center; overflow: hidden; border: 1px solid rgba(247, 238, 220, .16); background: #27392f; box-shadow: 0 24px 80px rgba(0, 0, 0, .28); }
+#game-container canvas { display: block; max-width: 100%; max-height: 100%; }
+.game-caption { justify-content: center; gap: 12px; min-height: 34px; color: #aab4a7; font-size: 11px; }
+.game-caption span { color: var(--red); }
+@media (max-width: 600px) {
+  .game-shell { justify-content: flex-start; padding: max(10px, env(safe-area-inset-top)) 10px max(8px, env(safe-area-inset-bottom)); }
+  .game-topline { min-height: 30px; margin-bottom: 5px; }
+  .brand { font-size: 12px; }
+  .topline-note { font-size: 8px; }
+  #game-container { width: min(100%, calc((100svh - 120px) * 1.55556)); aspect-ratio: 14 / 9; }
+  .game-caption { flex-wrap: wrap; gap: 5px 8px; padding-top: 6px; font-size: 9px; }
+}
