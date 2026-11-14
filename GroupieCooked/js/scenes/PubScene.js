@@ -58,18 +58,7 @@ export class PubScene extends Phaser.Scene {
       }
     };
     document.addEventListener("keydown", this.escapeHandler);
-    this.trayDropHandler = (event) => {
-      if (event.key.toLowerCase() !== "q" || !this.trayEquipped) return;
-      event.preventDefault();
-      const target = this.getTarget();
-      if (target?.targetType === "station" && target.type === "tray") this.interactTray();
-      else this.say("KUT GROUPIE je laat het blad toch niet in de kroeg achter, je bent alleen dus leg hem achter de bar of hou hem vast");
-    };
-    document.addEventListener("keydown", this.trayDropHandler);
-    this.events.once("shutdown", () => {
-      document.removeEventListener("keydown", this.escapeHandler);
-      document.removeEventListener("keydown", this.trayDropHandler);
-    });
+    this.events.once("shutdown", () => document.removeEventListener("keydown", this.escapeHandler));
     this.interactionGraphic = this.add.graphics().setDepth(900);
     this.fryerGraphic = this.add.graphics().setDepth(900);
     this.scene.bringToTop();
@@ -1070,7 +1059,7 @@ export class PubScene extends Phaser.Scene {
       return;
     }
     if (!target || this.paused) {
-      this.prompt.setText(this.paused ? "" : this.trayEquipped ? "Q  BLAD TERUG NAAR DE BAR" : "WASD / PIJLTJES OM TE LOPEN");
+      this.prompt.setText(this.paused ? "" : "WASD / PIJLTJES OM TE LOPEN");
       return;
     }
     const p = this.project(target.col, target.row);
